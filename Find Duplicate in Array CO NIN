@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+
+public class Solution{
+    public static int findDuplicate(ArrayList<Integer> arr, int n){
+        // Write your code here.
+        boolean[]A=new boolean[n+1];
+        for(int i:arr){
+            if(A[i])return i;
+            A[i]=true;
+        }
+        return 0;
+    }
+}
