@@ -1,0 +1,26 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static void swap(int a, int b){
+        int temp=a;
+        a=b;
+        b=temp;
+    }
+    public static int[] ninjaAndSortedArrays(int arr1[], int arr2[], int m, int n) {
+        int gap= (int) Math.ceil((double)(n+m)/2.0);
+        while(gap>0){
+            int i=0,j=gap;
+            while(j<(n+m)){
+                if(j<n && arr1[i]>arr1[j]) {swap(arr1[i], arr1[j]);}
+                else if(j>=n && i<n arr1[i]>arr2[j-n]) {swap(arr1[i],arr2[j-n]);}
+                else if(j>=n && i>=n && arr1[i-n]>arr2[j-n]) {swap(arr1[i-n], arr2[j-n]);}
+            }
+            i++;
+            j++;
+            
+        }
+        if(gap==1) gap=0;
+        else gap=(int)Math.ceil((double)gap/2.0);
+        
+    }
+}
