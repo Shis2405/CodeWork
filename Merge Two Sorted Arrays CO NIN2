@@ -1,0 +1,24 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int[] ninjaAndSortedArrays(int arr1[], int arr2[], int m, int n) {
+        int mergedArray[] = new int[ m + n];
+        int arr1Index = 0, arr2Index = 0;
+        int mergedArrayIndex = 0;
+        while(arr1Index < m && arr2Index < n){
+            if(arr1[arr1Index] <= arr2[arr2Index]){
+                mergedArray[mergedArrayIndex++] = arr1[arr1Index++];
+            }else{
+                mergedArray[mergedArrayIndex++] = arr2[arr2Index++];
+            }
+        }
+        
+        while(arr1Index < m){
+           mergedArray[mergedArrayIndex++] = arr1[arr1Index++];
+        }
+        while(arr2Index < n){
+           mergedArray[mergedArrayIndex++] = arr2[arr2Index++]; 
+        }
+        return mergedArray;
+    }
+}
