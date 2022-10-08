@@ -1,0 +1,121 @@
+//{ Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+
+class IntArray
+{
+    public static int[] input(BufferedReader br, int n) throws IOException
+    {
+        String[] s = br.readLine().trim().split(" ");
+        int[] a = new int[n];
+        for(int i = 0; i < n; i++)
+            a[i] = Integer.parseInt(s[i]);
+
+        return a;
+    }
+
+    public static void print(int[] a)
+    {
+        for(int e : a)
+            System.out.print(e + " ");
+        System.out.println();
+    }
+
+    public static void print(ArrayList<Integer> a)
+    {
+        for(int e : a)
+            System.out.print(e + " ");
+        System.out.println();
+    }
+}
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t;
+        t = Integer.parseInt(br.readLine());
+        while(t-- > 0){
+            
+            int n;
+            n = Integer.parseInt(br.readLine());
+            
+            
+            int[] nums = IntArray.input(br, n);
+            
+            Solution obj = new Solution();
+            ArrayList<Integer> res = obj.Solve(n, nums);
+            
+            IntArray.print(res);
+            
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+class Solution {
+    public static ArrayList<Integer> Solve(int n, int[] nums) {
+        int count1=0;
+        int count2=0;
+        Integer candidate1=null;
+        Integer candidate2=null;
+        
+        for(int i: nums){
+            if(candidate1 != null && candidate1==i){
+                count1++;
+            }
+            else if(candidate2 != null && candidate2==i){
+                count2++;
+            }
+            else if(count1==0){
+                candidate1=i;
+                count1++;
+            }
+            else if(count2==0){
+                candidate2=i;
+                count2++;
+            }
+                
+            
+            else{
+                count1--;
+                count2--;
+                
+            }
+        }
+        
+        ArrayList<Integer> list=new ArrayList<>(); 
+            int cnt1=0;
+            int cnt2=0;
+            
+        for(int k:nums){
+                if(candidate1 != null && candidate1==k) cnt1++;
+                if(candidate2 != null && candidate2==k) cnt2++;
+                
+            }
+            int len=nums.length;
+            
+            if(cnt1>len/3 && cnt2>len/3) {
+                list.add(candidate1);
+                list.add(candidate2);
+                return list;
+            }
+            else if(cnt1>len/3){
+                list.add(candidate1);
+                return list;
+            }
+            else if(cnt2>len/3){
+                list.add(candidate2);
+                return list;
+            }
+            else {
+                list.clear();
+                list.add(-1);
+                return list;
+            }
+           
+    }
+}
+   
