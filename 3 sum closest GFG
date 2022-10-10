@@ -1,0 +1,41 @@
+class Solution
+{
+    static int closest3Sum(int A[], int N, int X)
+    {
+        int res=0, diff=Integer.MAX_VALUE;
+        //sorting the array
+        
+        Arrays.sort(A);
+        for(int i=0; i<N;i++){
+            //lets take the first element in an array
+            int a=A[i];
+            int l=i+1;
+            int h=N-1;
+            int req=X-a;
+            //while left is less than high
+            while(l<h){
+                
+                int curr_sum=A[l]+A[h];
+                int actual=a+curr_sum;
+                int tmpdiff=getdiff(actual,X);
+                res=tmpdiff<diff?actual:res;
+                diff=diff<tmpdiff?diff:tmpdiff;
+                if(curr_sum<req){ l++;}
+                else if(curr_sum>req) {h--;}
+                else {return X;}
+                
+            }
+        }
+            return res;
+        }
+    
+        static int getdiff(int first, int second){
+            if(first-second<0){
+                return second-first;
+            }
+            else {
+                return first -second;
+            }
+        }
+}
+    
