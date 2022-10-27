@@ -1,0 +1,33 @@
+class Solution {
+    public int numSpecial(int[][] mat) {
+        int r=mat.length;
+        int c=mat[0].length;
+        int [] onesinrows= new int [r];
+        int [] onesincols= new int [c];
+        int count=0;
+        for(int i=0; i<r;i++){
+            for(int j=0;j<c;j++){
+                if(mat[i][j]==1){
+                    onesinrows[i]++;
+                    onesincols[j]++;
+                    
+                    //The above loop is to get the number of 1's in each row and column and increment the count of 1 in each row
+                }
+            }
+        }
+       for(int i=0; i<r;i++){
+            for(int j=0;j<c;j++){
+                if(mat[i][j] == 1){
+                if(onesinrows[i]==1 && onesincols[j]==1) // here we are taking the rows and columns having only one '1'
+                    count ++;
+                }
+                
+            }
+       }
+       return count;
+        
+    }
+}
+
+
+
