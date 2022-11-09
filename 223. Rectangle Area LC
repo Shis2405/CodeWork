@@ -1,0 +1,22 @@
+class Solution {
+    public int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+
+        int areaA= (ay2-ay1)*(ax2-ax1);
+        int areaB= (by2-by1)*(bx2-bx1);
+        
+        int right=Math.min(ax2,bx2);
+        int left=Math.max(ax1,bx1);
+        int xoverlap=right-left;
+        
+        int top=Math.min(by2,ay2);
+        int bottom=Math.max(ay1,by1);
+        int yoverlap=top-bottom;
+        
+        int Areaofoverlap=0;
+        if(xoverlap>0 && yoverlap>0){
+            Areaofoverlap=xoverlap*yoverlap;
+        }
+        int totalarea=areaA+areaB-Areaofoverlap;
+         return totalarea;
+    }
+}
