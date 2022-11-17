@@ -1,0 +1,55 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+       /*HashSet Concept 3 times of hashset sum - arraysum=2c{3(a+b+c)-(a+a+a+b+b+b+c)=2c}*/
+        
+       Set<Long> set= new HashSet<>();// Declaration 
+        long sumSet=0,arraySum=0;
+        for(int num: nums){
+            arraySum +=num;
+            set.add((long)num);
+        }
+        for(Long s: set) sumSet+=s;
+        return (int)((3*sumSet-arraySum)/2);
+        }
+    }
+
+Time complexity : \mathcal{O}(N)O(N) to iterate over the input array.
+
+Space complexity : \mathcal{O}(N)O(N) to keep the set of N/3N/3 elements.
+---------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int singleNumber(int[] nums) {
+       /*HashMap Concept to get count which is once*/
+        
+       HashMap<Integer, Integer> hashmap= new HashMap<>();// Declaration 
+        for(int n: nums)
+            hashmap.put(n, hashmap.getOrDefault(n, 0)+1);
+        for(int k: hashmap.keySet())
+            if(hashmap.get(k)==1) return k;
+        return -1;
+        
+        }  
+    }
+
+Time complexity : \mathcal{O}(N)O(N) to iterate over the input array.
+
+Space complexity : \mathcal{O}(N)O(N) to keep the set of N/3N/3 elements.
+
+------------------------------------------------------------------------------------------------------------------- 
+Most Optimal with the Bitwise operators
+class Solution {
+    public int singleNumber(int[] nums) {
+        
+        // Here the concept of the bitwise negation and XOR is used which helps to take off the repeated elements
+       int seenonce=0, seentwice=0;
+        
+        for(int num: nums){
+            //need to take the count for each occurence
+            seenonce= ~seentwice &(seenonce ^ num);
+            seentwice= ~seenonce &(seentwice ^ num);
+        }
+        return seenonce;
+        }
+    }
+
