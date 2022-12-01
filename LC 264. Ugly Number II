@@ -1,0 +1,28 @@
+264. Ugly Number II
+
+An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+
+Given an integer n, return the nth ugly number.
+
+
+
+
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        
+        int ugly[]= new int [n];
+        ugly[0]=1;
+        int ind2=0,ind3=0,ind5=0;
+        int fact2=2, fact3=3, fact5=5;
+        for(int i=1;i<n;i++){
+            int min=Math.min(Math.min(fact2,fact3),fact5);
+            ugly[i]=min;
+            if(fact2==min)fact2=2*ugly[++ind2];
+            if(fact3==min)fact3=3*ugly[++ind3];
+            if(fact5==min)fact5=5*ugly[++ind5];
+        }
+        return ugly[n-1];
+    
+  }
+}
