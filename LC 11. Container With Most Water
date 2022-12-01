@@ -1,0 +1,53 @@
+11. Container With Most Water
+Medium
+
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+
+
+
+///// The solution expected is a Brute and optimal solution
+
+class Solution {
+    public int maxArea(int[] height) {
+        
+        int maxarea=0;
+        int n=height.length;
+        
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int width=j-i;
+                maxarea=Math.max(maxarea, Math.min(height[j],height[i])*width);
+            }
+        }
+        return maxarea;
+        
+    }
+}
+
+//The above gets a TLE due to the program with TC as O(N^2)
+
+
+//Below solution is based on fact that the maxare will alwys be between the 2 neds with max height and also the width should be large. So in this case
+// We need to see if the height at any of the left or right is less than the other we need to move the other pointer alongside(decreasing j/ increasing i)
+class Solution {
+    public int maxArea(int[] height) {
+        
+        int maxarea=0, left=0;
+        int right=height.length-1;
+        int n=height.length;
+        while(left<right){//concept of 2 pointers
+        maxarea=Math.max(maxarea, Math.min(height[right], height[left])*(right-left));
+            if(height[right]>height[left]) left++;
+            else right--;
+        
+        }
+        return maxarea;
+    }
+        
+}
