@@ -1,0 +1,43 @@
+611. Valid Triangle Number
+
+Given an integer array nums, return the number of triplets chosen from the array that can make triangles if we take them as side lengths of a triangle.
+
+//Taking Brute force approach for all the elements in i,j,k that gives the n^3 complexity. 
+
+class Solution {
+    public int triangleNumber(int[] nums) {
+        int n=nums.length;
+        int count=0;
+        for(int i=0;i<n-2;i++){
+            for(int j=i+1;j<n-1;j++){
+                for(int k=j+1;k<n;k++){
+                    if(nums[i]+nums[j]>nums[k] && nums[i]+nums[k]>nums[j] && nums[k]+nums[j]>nums[i])
+                      count+=1;  
+                }
+            }
+        }
+        return count;
+    }
+}
+
+
+
+//Taking the optimal approach, i looping from 0 to n-2 and k=i+2 post that j will loop from i+1 to n-1 and nums[i} cannot be zero while k<n and nums[i]
+//+nums[j]>k then add k++, once breaks we can take teh count as the sum of previous count and (k-j-1)
+class Solution {
+    public int triangleNumber(int[] nums) {
+        int n=nums.length;
+        int count=0;
+        Arrays.sort(nums);
+        for(int i=0;i<n-2;i++){
+            int k=i+2;
+            for(int j=i+1;j<n-1&&nums[i]!=0;j++){
+                while(k<n && nums[i]+nums[j]>nums[k]){
+                    k++;
+                }
+                count +=k-j-1;
+            }
+        }
+        return count;
+    }
+}
