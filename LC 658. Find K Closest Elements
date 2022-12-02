@@ -1,0 +1,97 @@
+//Using Comparable methods
+
+class Solution {
+    class pair implements Comparable <pair>{
+        int val;
+        int gap;
+    
+    pair(){}
+    pair(int val, int gap){
+        this.val=val;
+        this.gap=gap;
+    }
+    }
+    public int compareTo(pair o){
+        if(this.gap==o.gap) return this.val-o.val;
+        else return this.gap-o.gap;
+    }
+    
+    
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        ArrayList<Integer> list= new Arraylist<>();
+        PriorityQueue<pair> pq= new PriorityQueue<>(Collections.reverseOrder());
+        if(pq.size()<k){
+            //Enter the elements normally
+            
+            pq.add(new pair(arr[i], Math.abs(arr[i]-x)));
+        }
+                   
+                   
+                   else{
+                       if(pq.peek().gap>Math.max(arr[i]-x)){
+                           pq.remove();
+                           pq.add(new pair (arr[i],Math.abs(arr[i]-x)));
+                           
+                       }
+                           
+                   }
+                   
+                   while(pq.size>0){
+                       pair rem=pq.remove();
+                       list.add(rem.val);
+                   }
+                   
+                   Collections.sort(list);
+    }
+}
+
+// Using comparator
+
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        //convert array to list to use sort collections
+        
+        List<Integer> sortedarr= new ArrayList<Integer>();
+        for (int i: arr){
+            sortedarr.add(i);
+        }
+        Collections.sort(sortedarr, (num1,num2) -> Math.abs(num1-x)-Math.abs(num2-x));
+        //only need k elements
+        sortedarr=sortedarr.subList(0,k);
+        //sort results again
+        Collections.sort(sortedarr);
+        return sortedarr;
+    }
+}
+
+
+////Most Optimal using Binary search
+
+
+ class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        // Initialize binary search bounds
+        int left = 0;
+        int right = arr.length - k;
+        
+        //Iterate for the binary search
+        
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(x-arr[mid]<arr[mid+k]-x){
+              right=mid+1;
+            }
+            else left=mid;
+            
+        }
+        //create the o/p
+        List<Integer> result=new ArrayList<Integer>();
+        for(int i=left;i<left+k;i++){
+            result.add(arr[i]);
+        }
+        return result;
+    }
+}
+
+
