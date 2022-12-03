@@ -1,0 +1,25 @@
+class Solution {
+    public int findPairs(int[] nums, int k) {
+     Arrays.sort(nums);
+        int n=nums.length;
+        int l=0, r=1, count=0;
+        while(l<n && r<n){
+            
+            
+            if(l==r || nums[r]-nums[l]<k){
+                r++;
+            }
+            
+            else if(nums[r]-nums[l]>k){
+                l++;
+                }
+            else{
+                l++;
+                count++;
+                while(l<n && nums[l]==nums[l-1]) l++;
+            }
+            
+        }
+        return count;
+    }
+}
