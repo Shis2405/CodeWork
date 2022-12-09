@@ -1,0 +1,51 @@
+//Solved using merged sort O(nlogn)
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int lo=0,hi=nums.length-1;
+        return mergesort(nums,lo,hi);//Calling mergesort to sort teh array
+
+    }
+    public int [] mergesort(int[]nums, int lo, int hi){
+        if(lo==hi){
+            int [] ba=new int[1];
+            ba[0]=nums[lo];
+            return ba; //base array condition
+        }
+        //splitting  into 2 halves and calling the mergesort array in order to create individual tree
+        int mid=lo+(hi-lo)/2;
+
+        int left[]= mergesort(nums,lo,mid);
+        int right[]= mergesort(nums,mid+1,hi);
+        int sorted[]= mergesorted(left,right); // calling mergesorted to actually sort nad then merge back
+        return sorted;
+    }
+
+    public int []mergesorted(int [] left, int [] right){// Here actul operation happens when the individual arrays are sorted back..
+
+    int i=0;
+    int j=0;
+    int k=0;
+
+    int [] merged = new int [left.length+ right.length];
+
+    while(i<left.length && j<right.length){
+        if(left[i]<=right[j]){
+            merged[k++]=left[i++];
+        }
+        else if (left[i]>right[j])
+        {
+            merged[k++]=right[j++];
+        }
+        
+    }
+    while(i<left.length){
+        merged[k++]=left[i++];
+    }
+
+    while(j<right.length){
+        merged[k++]=right[j++];
+    }
+   return merged; 
+    }
+}
