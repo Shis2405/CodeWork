@@ -1,0 +1,34 @@
+Intuition
+Taking the elements and finding the difference inthe subsequent element of the sorted array helps to give the lowest differences possible
+
+Approach
+Taking the elements and finding the difference inthe subsequent element of the sorted array helps to give the lowest differences possible. This can be used to identify the index and the next index which gives that desired result
+
+Complexity
+Time complexity:
+O(nlogn)- For sorting and then the next is for 2 for loops of 2n. Overall Complexity is nlogn
+
+Space complexity:
+o(n)
+
+class Solution {
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        List<List<Integer>> ans= new ArrayList<List<Integer>>();
+        Arrays.sort(arr);
+        int diff[] = new int [arr.length-1];
+        int mindiff=Integer.MAX_VALUE;
+        for(int i=0,j=0;i<arr.length-1;i++){
+            diff[j++]=arr[i+1]-arr[i];
+            mindiff=Math.min(mindiff,arr[i+1]-arr[i]);
+        }
+        for(int j=0;j<diff.length;j++){
+            if(diff[j]==mindiff){
+                ans.add(Arrays.asList(arr[j], arr[j+1]));
+            }
+
+        }
+        return ans;
+    }
+}
+
+
