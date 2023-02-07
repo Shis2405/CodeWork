@@ -1,0 +1,14 @@
+class Solution {
+    public int getSum(int a, int b) {
+        if(b==0) return a;
+        int sum= a ^ b;
+        int carry= (a & b) << 1;
+        return getSum(sum,carry);
+
+
+        
+    }
+}
+
+// Since the additiona nd subtraction cannot be used we can use the bitwise operator and try to perform the addition likewise to the xor and the and operation with left shifting with the 1.
+// Since the left shiifting should reduce to 0 and the xor continues until then. There we will use the recursive function.
