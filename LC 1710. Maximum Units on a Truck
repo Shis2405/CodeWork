@@ -1,0 +1,52 @@
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+       Arrays.sort(boxTypes, (a,b) -> Integer.compare(b[1], a[1]));
+       int boxes=0;
+
+       for(int[] box : boxTypes){
+           if(truckSize>=box[0]){
+               boxes += box[0]*box[1];
+               truckSize -= box[0];
+           }
+           else{
+             boxes += truckSize*box[1];  
+             return boxes;
+           }
+       }
+
+    return boxes;   
+
+    }
+}
+
+////////////////////////////////////////////
+
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+       PriorityQueue <Integer, Integer> pq= new PriorityQueue <>() ;
+       int count=0;
+
+       for(int [] x: boxTypes){
+           pq.push(x[1],x[0]);
+       }
+       int units=0;
+       while(!pq.empty() && count < truckSize){
+           if(count+pq.top().second<truckSize){
+               count += pq.top().second;
+               units += pq.top().second * pq.top().first;
+               pq.pop();
+
+           }
+           else{
+               int quantity= truckSize - count;
+               count +=quantity;
+               units += quantity * pq.top().first;
+               pq.pop();
+
+           }
+       }
+       return units;
+
+    }
+}
+
