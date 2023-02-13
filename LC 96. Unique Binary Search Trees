@@ -1,0 +1,46 @@
+//Approach 1 with i and j for the left and right part of teh answer set
+
+class Solution {
+    public int numTrees(int n) {
+        
+        // We need to find the intial base cases
+        int dp[]= new int [n+1];
+        dp[0]=1;
+        dp[1]=1;
+
+        //Need to run teh loop for the other elements
+
+        for(int i=2;i<=n;i++){
+            for(int j=1;j<=i;j++){
+                dp[i]+=dp[j-1]*dp[i-j];
+            }
+        }
+        return dp[n];
+    }
+}
+
+//Approach 2 for the dp with left and rught pointer for the elements
+
+class Solution {
+    public int numTrees(int n) {
+        
+        // We need to find the intial base cases
+        int dp[]= new int [n+1];
+        dp[0]=1;
+        dp[1]=1;
+
+        //Need to run teh loop for the other elements
+
+        for(int i=2;i<=n;i++){
+            int l=0;
+            int r= i-1;
+            while(l<=i-1){
+                dp[i]+= dp[l]*dp[r];
+                l++;
+                r--;
+                
+            }
+        }
+        return dp[n];
+    }
+}
