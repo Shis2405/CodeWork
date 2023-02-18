@@ -1,0 +1,90 @@
+//Recursive solution
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        compute(root);
+        return root;
+    }
+    public void compute(Node curr){
+        if(curr==null || curr.left==null) return;
+        curr.left.next=curr.right;
+        if(curr.next!=null) curr.right.next=curr.next.left;
+        compute(curr.left);
+        compute(curr.right);
+    }
+}
+
+//Iterative Approach
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        //check that the root is not null
+        
+        if(root==null) return root;
+        //initialize a queue DS containing only one root
+        Queue<Node> q= new LinkedList<Node>();
+        q.add(root);
+        //creating outerwhile loop to iterate the levels
+        while(q.size()>0){
+            int size=q.size();
+            //iterate over teh elements
+            for(int i=0;i<size;i++){
+                Node node=q.poll();//pop the first element 
+                if(i<size-1){ node.next=q.peek();}
+                //add children to back of queue
+                if(node.left!=null) q.add(node.left);
+                if(node.right!=null) q.add(node.right);
+                
+                    
+                
+            }
+        }
+        return root;
+    }
+}
