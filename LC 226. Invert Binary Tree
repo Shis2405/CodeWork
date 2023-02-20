@@ -1,0 +1,79 @@
+//Recursive approach
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        //Base case
+        if(root==null) return null;
+
+        //call the left and right recursion
+        invertTree(root.left);
+        invertTree(root.right);
+        //now swap
+        TreeNode curr= root.left;
+        root.left= root.right;
+        root.right=curr;
+        return root;
+
+
+        
+    }
+}
+
+//Iterative:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        
+        LinkedList<TreeNode> q= new LinkedList<TreeNode>();
+        //Base case, if tree is empty
+        if(root!=null) q.add(root);
+        //Need to loop till the queue is empty
+        while(!q.isEmpty()){
+            //deque the front of the queue
+            TreeNode temp = q.poll();
+            //enqueue the left and the right of the queue
+            if(temp.left!=null) q.add(temp.left);
+            if(temp.right!=null) q.add(temp.right);
+            // we can now swap them
+
+            TreeNode curr= temp.left;
+            temp.left=temp.right;
+            temp.right=curr;
+            
+
+
+        }
+        return root;
+        
+    }
+}
