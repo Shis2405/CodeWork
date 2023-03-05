@@ -1,0 +1,36 @@
+//Brute
+
+class Solution {
+    public boolean splitArraySameAverage(int[] nums) {
+        Arrays.sort(nums);
+        int len= nums.length;
+        ArrayList<Integer> A=new ArrayList<Integer> ();
+        ArrayList<Integer> B=new ArrayList<Integer> ();
+        int sum1=0;
+        int sum2=0;
+        int avg1=0;
+        int avg2=0;
+        int s=0,t=0;
+        for(int i=0,j=len-1;i <=j;i+=2,j-=2){
+            sum1+=nums[i]+nums[j];
+            A.add(s++,nums[i]);
+            A.add(s++,nums[j]);
+
+        }
+        for(int k=1,l=len-2;k <=l;k+=2,l-=2){
+            sum2+=nums[k]+nums[l];
+            B.add(t++,nums[k]);
+            B.add(t++,nums[l]);
+            }
+        if(A.size()>0) {
+            avg1=(sum1)/(A.size());}
+        else avg1=0;
+        if(B.size()>0) {
+            avg2=(sum2)/(B.size());}
+        else avg2=0;
+        
+        if(avg1==avg2) return true;
+        else return false;
+        
+    }
+}
