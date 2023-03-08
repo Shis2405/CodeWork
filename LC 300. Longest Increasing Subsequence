@@ -1,0 +1,35 @@
+Most Optimal with Binary search
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+    if(nums==null || nums.length==0) return 0;
+    int n=nums.length;
+    int len=0;
+    int [] increasing = new int [n];
+    increasing[len++]=nums[0];
+
+    for(int i=1;i<n;i++){
+        if(nums[i]>increasing[len-1]) increasing[len++]=nums[i];
+        else{
+            int pos=findposition(increasing,0,len-1,nums[i]);
+            increasing[pos]=nums[i];
+
+        }
+
+    }
+    return len;
+}
+    public int findposition(int []a, int lo,int hi,int x){
+        int mid=0;
+        
+
+        while(lo<=hi){
+            mid=lo+(hi-lo)/2;
+            if(a[mid]==x) return mid;
+            else if(a[mid]>x) hi=mid-1;
+            else lo=mid+1;
+
+        }
+        return lo;
+    }
+}
