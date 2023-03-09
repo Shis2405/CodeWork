@@ -1,0 +1,39 @@
+//DP and Memoization
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n=nums.length;
+        for(int num:nums) sum+=num;
+
+        if(sum%2!=0) return false;
+
+        else{
+            int k=sum/2;
+            int [][]dp= new int [n+1][k+1];
+            for(int []row:dp)Arrays.fill(row,-1);
+            return subsetSumUtil(n-1,k,nums,dp);
+        }
+    }
+
+    public boolean subsetSumUtil(int ind, int target, int []nums, int [][]dp){
+        //base case
+        if(target==0) return true;
+        if(ind==0) return nums[0]==target;
+        if(dp[ind][target]!=-1)return dp[ind][target]==0?false:true;
+
+        boolean nottaken = subsetSumUtil(ind-1,target,nums,dp);
+        boolean taken=false;
+        if(nums[ind]<=target){
+        taken= subsetSumUtil(ind-1,target-nums[ind],nums,dp);
+        dp[ind][target]=nottaken||taken?1:0;
+        }
+        return taken || nottaken;
+
+
+    }
+}
+
+
+//converting to tabulation:
+
