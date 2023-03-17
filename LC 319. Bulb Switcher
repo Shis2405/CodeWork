@@ -1,0 +1,9 @@
+// This is based on teh numbers by the swquare root
+
+class Solution {
+    public int bulbSwitch(int n) {
+        if(n<1) return n;
+        else return (int) Math.sqrt(n);
+        
+    }
+}
