@@ -1,0 +1,55 @@
+//Naive approach
+
+class MedianFinder {
+    List<Integer> list;
+
+
+    public MedianFinder() {
+        this.list = new ArrayList<Integer>();
+        
+    }
+    
+    public void addNum(int num) {
+        if(list.size()==0) list.add(0,num);
+        else {
+            int i=0;
+            while(list.get(i)<=num && i<list.size()-1)i++;
+            if(list.get(i)<=num)list.add(i+1, num);
+            else list.add(i, num);
+        }
+
+    
+    }
+    
+    public double findMedian() {
+        int n=list.size();
+        if(n==0) return 0;
+        if(n%2==1) return list.get(n/2);
+        else return (double)((list.get(n/2)+list.get(n/2-1)))/2;
+        
+    }
+}
+
+//Optimised approach
+
+private PriorityQueue<Integer> small = new PriorityQueue<>(Collections.reverseOrder());
+private PriorityQueue<Integer> large = new PriorityQueue<>();
+private boolean even = true;
+
+public double findMedian() {
+    if (even)
+        return (small.peek() + large.peek()) / 2.0;
+    else
+        return small.peek();
+}
+
+public void addNum(int num) {
+    if (even) {
+        large.offer(num);
+        small.offer(large.poll());
+    } else {
+        small.offer(num);
+        large.offer(small.poll());
+    }
+    even = !even;
+}
