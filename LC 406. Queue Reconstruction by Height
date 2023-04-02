@@ -1,0 +1,13 @@
+//This follows the simple principle of comparing to push the highest element to the left and the element with the index in ascending order, by this we can get a competing solution to find the best fit array answer TC is o(nlogn+n^2)
+
+
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+	Arrays.sort(people, (a,b) -> a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]);
+
+	List<int[]> ordered = new LinkedList<>();
+	for (int[] p: people) ordered.add(p[1], p);
+
+	return ordered.toArray(new int[people.length][2]);
+}
+}
