@@ -1,0 +1,28 @@
+class Solution {
+        private static final int[] d = {0, 1, 0, -1, 0};
+    public List<List<Integer>> highestRankedKItems(int[][] grid, int[] pricing, int[] start, int k) {
+        int R = grid.length, C = grid[0].length;
+        int x = start[0], y = start[1], low = pricing[0], high = pricing[1];
+        Set<String> seen = new HashSet<>(); // Set used to prune duplicates.
+        seen.add(x + "," + y);
+        List<List<Integer>> ans = new ArrayList<>();
+        // PriorityQueue sorted by (distance, price, row, col).
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] == b[0] ? a[1] == b[1] ? a[2] == b[2] ? a[3] - b[3] : a[2] - b[2] : a[1] - b[1] : a[0] - b[0]);
+        pq.offer(new int[]{0, grid[x][y], x, y}); // BFS starting point.
+        while (!pq.isEmpty() && ans.size() < k) {
+            int[] cur = pq.poll();
+            int distance = cur[0], price = cur[1], r = cur[2], c = cur[3]; // distance, price, row & column.
+            if (low <= price && price <= high) { // price in range?
+                ans.add(Arrays.asList(r, c));
+            }
+            for (int m = 0; m < 4; ++m) { // traverse 4 neighbors.
+                int i = r + d[m], j = c + d[m + 1];
+                // in boundary, not wall, and not visited yet?
+                if (0 <= i && i < R && 0 <= j && j < C && grid[i][j] > 0 && seen.add(i + "," + j)) {
+                    pq.offer(new int[]{distance + 1, grid[i][j], i, j});
+                }
+            }
+        }
+        return ans;
+    }
+}
