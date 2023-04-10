@@ -1,0 +1,43 @@
+//Using BFS:
+
+class Solution {
+    public int minimumOperations(int[] nums, int start, int goal)
+    {
+        Queue<Integer> queue=new LinkedList<>();
+        int[] vis=new int[1001];
+        
+        queue.add(start);
+        int count=0;
+        
+        while(!queue.isEmpty())
+        {
+            int len=queue.size();
+            
+            while(len-->0)
+            {
+                int temp=queue.remove();
+                if(temp==goal)
+                {
+                    return count;
+                }
+                
+                if(temp<0 || temp>1000 || vis[temp]==1)
+                {
+                    continue;
+                }
+                
+                vis[temp]=1;
+                
+                for(int i:nums)
+                {
+                    queue.add(temp+i);
+                    queue.add(temp-i);
+                    queue.add(temp^i);
+                }
+            }
+            
+            count++;
+        }
+        return -1;
+    }
+}
