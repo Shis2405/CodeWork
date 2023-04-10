@@ -1,0 +1,19 @@
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        //First find the sum of the element
+        int sum=0,maxLength=-1,currSum=0;
+        int n=nums.length;
+        for(int k:nums) sum +=k;
+
+        int target= sum -x;
+        for(int l=0,r=0;r<n;r++){
+            currSum +=nums[r];
+            while(l<=r && currSum>target) currSum -=nums[l++];
+            if(currSum==target) maxLength= Math.max(maxLength, r-l+1);
+
+        }
+        return maxLength==-1? -1: nums.length-maxLength;
+
+        
+    }
+}
